@@ -1,0 +1,71 @@
+{
+  "name": "gopack-server",
+  "version": "1.0.0",
+  "description": "This is the Node Js GitHubApp for the GOPack documentation.",
+  "main": "./public/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "webpack -w",
+    "start": "nodemon ./public/main.js",
+    "serve": "gopack serve",
+    "build": "gopack build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/onukwilip/gopack-server.git"
+  },
+  "author": "Prince C. Onukwili",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/onukwilip/gopack-server/issues"
+  },
+  "homepage": "https://github.com/onukwilip/gopack-server#readme",
+  "dependencies": {
+    "@octokit/app": "^4.1.0",
+    "@octokit/rest": "^16.28.9",
+    "axios": "^1.3.5",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "nodemon": "^2.0.22",
+    "typescript": "^5.0.4"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.21.0",
+    "@babel/core": "^7.21.3",
+    "@babel/node": "^7.20.7",
+    "@babel/preset-env": "^7.20.2",
+    "@babel/preset-react": "^7.18.6",
+    "@go-pack/gopack": "^2.3.8",
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.10",
+    "@types/cors": "^2.8.13",
+    "@types/express": "^4.17.17",
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
+    "babel-loader": "^9.1.2",
+    "clean-webpack-plugin": "^4.0.0",
+    "core-js": "^3.29.1",
+    "cross-env": "^7.0.3",
+    "css-loader": "^6.7.3",
+    "file-loader": "^6.2.0",
+    "handlebars-loader": "^1.7.3",
+    "html-loader": "^4.2.0",
+    "html-webpack-plugin": "^5.5.0",
+    "mini-css-extract-plugin": "^2.7.5",
+    "postcss": "^8.4.21",
+    "postcss-loader": "^7.1.0",
+    "postcss-preset-env": "^8.0.1",
+    "pug-loader": "^2.4.0",
+    "react-refresh": "^0.14.0",
+    "sass-loader": "^13.2.1",
+    "style-loader": "^3.3.2",
+    "ts-loader": "^9.4.2",
+    "vue-loader": "^17.0.1",
+    "vue-style-loader": "^4.1.3",
+    "vue-template-compiler": "^2.7.14",
+    "webpack": "^5.76.2",
+    "webpack-cli": "^5.0.1",
+    "webpack-dev-server": "^4.13.1"
+  }
+}
