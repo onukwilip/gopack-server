@@ -8,7 +8,6 @@ const app = new App({
   id: +(process.env.GITHUB_APP_ID || ""),
   privateKey: process.env.GITHUB_PRIVATE_KEY?.replace(/\\n/g, "\n") as string,
 });
-const jwt: any = app.getSignedJsonWebToken();
 
 /**
  * This method will generate an installationAccessToken which we will further pass to create
@@ -22,6 +21,8 @@ export const getInstallationAccessToken = async (
   owner: string,
   repo: string
 ) => {
+  const jwt: any = app.getSignedJsonWebToken();
+
   const response = await axios.get(
     `https://api.github.com/repos/${owner}/${repo}/installation`,
     {
