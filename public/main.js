@@ -2875,7 +2875,6 @@ const app = new _octokit_app__WEBPACK_IMPORTED_MODULE_2__.App({
   id: +(process.env.GITHUB_APP_ID || ""),
   privateKey: (_a = process.env.GITHUB_PRIVATE_KEY) === null || _a === void 0 ? void 0 : _a.replace(/\\n/g, "\n")
 });
-const jwt = app.getSignedJsonWebToken();
 /**
  * This method will generate an installationAccessToken which we will further pass to create
  * installation level client for GitHub API.
@@ -2886,6 +2885,7 @@ const jwt = app.getSignedJsonWebToken();
  */
 const getInstallationAccessToken = (owner, repo) => __awaiter(void 0, void 0, void 0, function* () {
   var _b;
+  const jwt = app.getSignedJsonWebToken();
   const response = yield axios__WEBPACK_IMPORTED_MODULE_3__["default"].get(`https://api.github.com/repos/${owner}/${repo}/installation`, {
     headers: {
       authorization: `Bearer ${jwt}`,
@@ -2959,7 +2959,7 @@ const eventsController = (req, res, next) => __awaiter(void 0, void 0, void 0, f
     const readme = yield (0,_utils__WEBPACK_IMPORTED_MODULE_0__.readReadmeFile)().catch(e => console.log("Error reading readme file"));
     // IF README FILE IS SUCCESSFULLY READ
     if (readme) {
-      // PUBLISH TO THE MQTT CLIENT
+      // PUBLISH TO THE MQTT  CLIENT
       _mqtt_client__WEBPACK_IMPORTED_MODULE_1__["default"].publish(process.env.MQTT_TOPIC, JSON.stringify({
         readme: readme
       }), {
