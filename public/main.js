@@ -3050,12 +3050,12 @@ Object.assign(global, {
   WebSocket: __webpack_require__(/*! ws */ "./node_modules/ws/index.js")
 });
 const config = {
-  protocol: "ws",
+  protocol: "wss",
   clientId: "mqttjs_" + Math.random().toString(16).substr(2, 8),
   reconnectPeriod: 1000,
   keepalive: 10
 };
-const client = (0,mqtt__WEBPACK_IMPORTED_MODULE_0__.connect)("ws://broker.emqx.io:8083/mqtt", config);
+const client = (0,mqtt__WEBPACK_IMPORTED_MODULE_0__.connect)("wss://broker.emqx.io:8084/mqtt", config);
 client.subscribe(process.env.MQTT_TOPIC);
 client.on("connect", () => {
   console.log("Connected");

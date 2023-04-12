@@ -4,13 +4,13 @@ import { IClientOptions } from "mqtt/types/lib/client-options";
 Object.assign(global, { WebSocket: require("ws") });
 
 export const config: IClientOptions = {
-  protocol: "ws",
+  protocol: "wss",
   clientId: "mqttjs_" + Math.random().toString(16).substr(2, 8),
   reconnectPeriod: 1000,
   keepalive: 10,
 };
 
-const client = connect("ws://broker.emqx.io:8083/mqtt", config);
+const client = connect("wss://broker.emqx.io:8084/mqtt", config);
 
 client.subscribe(process.env.MQTT_TOPIC as string);
 
