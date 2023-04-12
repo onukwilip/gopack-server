@@ -20,7 +20,7 @@ export const eventsController: (...handlers: any) => any = async (
     );
     // IF README FILE IS SUCCESSFULLY READ
     if (readme) {
-      // PUBLISH TO THE MQTT CLIENT
+      // PUBLISH TO THE MQTT  CLIENT
       client.publish(
         process.env.MQTT_TOPIC as string,
         JSON.stringify({ readme: readme }),
