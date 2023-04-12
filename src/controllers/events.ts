@@ -1,4 +1,5 @@
-import { writeRemoteReadmeToLocalReadme } from "../utils";
+import { readReadmeFile, writeRemoteReadmeToLocalReadme } from "../utils";
+import client from "../mqtt-client";
 
 export const eventsController: (...handlers: any) => any = async (
   req,
@@ -13,6 +14,19 @@ export const eventsController: (...handlers: any) => any = async (
     await writeRemoteReadmeToLocalReadme().catch((e) =>
       console.log("There was an error writing to the readme file", e)
     );
+    // GET THE README FILE
+    const readme = await readReadmeFile().catch((e) =>
+      console.log("Error reading readme file")
+    );
+    // IF README FILE IS SUCCESSFULLY READ
+    if (readme) {
+      // PUBLISH TO THE MQTT CLIENT
+      client.publish(
+        process.env.MQTT_TOPIC as string,
+        JSON.stringify({ readme: readme }),
+        { qos: 1 }
+      );
+    }
   }
 
   next();

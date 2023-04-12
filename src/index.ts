@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import eventsRouter from "./routes/events";
 import bodyParser from "body-parser";
 import readmeRouter from "./routes/readme";
+import "./mqtt-client";
 
 dotenv.config();
 const app = express();
