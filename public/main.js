@@ -2963,7 +2963,7 @@ const eventsController = (req, res, next) => __awaiter(void 0, void 0, void 0, f
       _mqtt_client__WEBPACK_IMPORTED_MODULE_1__["default"].publish(process.env.MQTT_TOPIC, JSON.stringify({
         readme: readme
       }), {
-        qos: 1
+        retain: true
       });
     }
   }

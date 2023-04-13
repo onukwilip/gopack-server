@@ -24,7 +24,7 @@ export const eventsController: (...handlers: any) => any = async (
       client.publish(
         process.env.MQTT_TOPIC as string,
         JSON.stringify({ readme: readme }),
-        { qos: 1 }
+        { retain: true }
       );
     }
   }
