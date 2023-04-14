@@ -19,4 +19,9 @@ module.exports = {
   // assetsFolder: "assets",
   // mapPlugins: {},
   libraries: ["typescript"],
+  // node: {}
+  target: "node", // Possible values are node, web, etc. Switch to `node` to support a Node Js environment. Visit https://webpack.js.org/configuration/target/ to learn more
+  copy: {
+    patterns: [{ from: "./src/static", to: "./static" }, "./.env"],
+  },
 };

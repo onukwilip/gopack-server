@@ -1,11 +1,14 @@
 const path = require("path");
 const MiniCSSExtractPlugin = require("mini-css-extract-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
 const HTMLWebpackPlugin = require("html-webpack-plugin");
 const webpack = require("webpack");
 const gopackConfig = require("./gopack.config");
 
 // FUNCTION TO CHECK IF A LIBRARY EXISTS
-const validateLibrary = (string) => gopackConfig?.libraries?.includes(string);
+const validateLibrary = (string) =>
+  gopackConfig?.libraries?.includes(string) ||
+  gopackConfig?.libraries?.find((library) => library?.name === string);
 
 // OPTIONAL LIBRARIES IMPORTS
 const librariesRequires = {
@@ -24,6 +27,10 @@ let mode = "development";
 // REACT REFRESH
 let reactRefresh = librariesRequires.react.ReactRefreshPlugin
   ? [new librariesRequires.react.ReactRefreshPlugin()]
+  : [];
+// COPY WEBPACK PLUGIN
+const copyWebpackPlugin = gopackConfig?.copy
+  ? [new CopyPlugin(gopackConfig?.copy)]
   : [];
 let miniCssExtractPlugin = [];
 let classLoader = "style-loader";
@@ -82,6 +89,18 @@ const supportedLibraries = {
       ? new librariesRequires.vue.vueLoader.VueLoaderPlugin()
       : undefined,
   },
+  // ANGULAR COMPATIBILTY
+  angular: {
+    plugin: new webpack.ContextReplacementPlugin(
+      /angular(\\|\/)core/,
+      path.join(
+        __dirname,
+        gopackConfig?.libraries?.find((lib) => lib.name === "angular")?.src ||
+          "./src"
+      ),
+      {}
+    ),
+  },
   // PUG COMPATIBILTY
   pug: {
     loader: {
@@ -110,9 +129,10 @@ const getSupportedLibrariesProperties = (key) => {
 
   const properties = [];
   for (const library of gopackConfig?.libraries) {
-    if (!supportedLibraries[library]) continue;
-    if (!supportedLibraries[library][key]) continue;
-    properties.push(supportedLibraries[library][key]);
+    const libraryName = library?.name || library;
+    if (!supportedLibraries[libraryName]) continue;
+    if (!supportedLibraries[libraryName][key]) continue;
+    properties.push(supportedLibraries[libraryName][key]);
   }
 
   return properties;
@@ -151,6 +171,7 @@ const output = {
 //DEV SERVER
 const devServer = {
   static: path.resolve("public"),
+  ...(validateLibrary("angular") ? { historyApiFallback: true } : {}),
   hot: true,
 };
 //DEV TOOL
@@ -200,8 +221,13 @@ const plugins = [
   ...miniCssExtractPlugin,
   ...htmlPlugins,
   ...webpackProvidePlugin,
+  ...copyWebpackPlugin,
   ...getSupportedLibrariesProperties("plugin"),
 ];
+// TARGET
+const target = gopackConfig?.target || "browserslist";
+// NODE
+const node = gopackConfig?.node ? { node: gopackConfig.node } : {};
 
 module.exports = {
   mode: mode,
@@ -212,5 +238,6 @@ module.exports = {
   resolve: resolve,
   module: _module,
   plugins: plugins,
-  target: "node",
+  target: target,
+  ...node,
 };

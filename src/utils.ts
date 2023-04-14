@@ -19,15 +19,16 @@ export const getRemoteReadmeFile = async (owner: string, repo: string) => {
 };
 
 export const writeToReadme = async (readmeContent: string) => {
-  await writeFile("./src/static/Readme.md", readmeContent).catch((e) =>
-    console.log("Error updating the readme file", e)
-  );
+  await writeFile(
+    path.resolve(__dirname, "static/Readme.md"),
+    readmeContent
+  ).catch((e) => console.log("Error updating the readme file", e));
 };
 
 export const readReadmeFile = async () => {
-  const readmeFile = await readFile(path.resolve("src/static/Readme.md")).catch(
-    (e) => console.log("Error reading the readme file", e)
-  );
+  const readmeFile = await readFile(
+    path.resolve(__dirname, "static/Readme.md")
+  ).catch((e) => console.log("Error reading the readme file", e));
   return readmeFile?.toString();
 };
 
