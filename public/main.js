@@ -3176,10 +3176,10 @@ const getRemoteReadmeFile = (owner, repo) => __awaiter(void 0, void 0, void 0, f
   return responseObject;
 });
 const writeToReadme = readmeContent => __awaiter(void 0, void 0, void 0, function* () {
-  yield (0,fs_promises__WEBPACK_IMPORTED_MODULE_1__.writeFile)("./src/static/Readme.md", readmeContent).catch(e => console.log("Error updating the readme file", e));
+  yield (0,fs_promises__WEBPACK_IMPORTED_MODULE_1__.writeFile)(path__WEBPACK_IMPORTED_MODULE_2___default().resolve(__dirname, "static/Readme.md"), readmeContent).catch(e => console.log("Error updating the readme file", e));
 });
 const readReadmeFile = () => __awaiter(void 0, void 0, void 0, function* () {
-  const readmeFile = yield (0,fs_promises__WEBPACK_IMPORTED_MODULE_1__.readFile)(path__WEBPACK_IMPORTED_MODULE_2___default().resolve("src/static/Readme.md")).catch(e => console.log("Error reading the readme file", e));
+  const readmeFile = yield (0,fs_promises__WEBPACK_IMPORTED_MODULE_1__.readFile)(path__WEBPACK_IMPORTED_MODULE_2___default().resolve(__dirname, "static/Readme.md")).catch(e => console.log("Error reading the readme file", e));
   return readmeFile === null || readmeFile === void 0 ? void 0 : readmeFile.toString();
 });
 const writeRemoteReadmeToLocalReadme = () => __awaiter(void 0, void 0, void 0, function* () {
